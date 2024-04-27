@@ -50,16 +50,34 @@
     </div>
 
     <script>
+        const ws = new WebSocket('ws://localhost:3000'); // Change the URL to your WebSocket server
+
         const messagesContainer = document.getElementById('messages');
         const messageInput = document.getElementById('message');
+        let userName = prompt("Please enter your name:");
+
+        ws.onopen = function(event) {
+            const data = {
+                text: userName + " has joined the chat! 🎉"
+            };
+            ws.send(JSON.stringify(data));
+        };
+
+        ws.onmessage = function(event) {
+            const message = JSON.parse(event.data);
+            const messageElement = document.createElement('div');
+            messageElement.textContent = message.text;
+            messagesContainer.appendChild(messageElement);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        };
 
         function sendMessage() {
             const message = messageInput.value.trim();
             if (message !== '') {
-                const messageElement = document.createElement('div');
-                messageElement.textContent = message;
-                messagesContainer.appendChild(messageElement);
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                const data = {
+                    text: userName + ": " + message + " 😊"
+                };
+                ws.send(JSON.stringify(data));
                 messageInput.value = '';
             }
         }
