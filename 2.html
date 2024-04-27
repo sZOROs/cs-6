@@ -3,84 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Room</title>
+    <title>CYBER UTU</title>
     <style>
         body {
+            background-color: #000;
+            color: #fff;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
         .container {
             max-width: 800px;
-            margin: 20px auto;
+            margin: 0 auto;
             padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        #messages {
-            height: 300px;
-            overflow-y: scroll;
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
+        h1 {
+            text-align: center;
+            font-size: 36px;
         }
-        input[type="text"] {
-            width: calc(100% - 70px);
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px 0 0 5px;
-        }
-        button {
-            width: 70px;
-            padding: 10px;
-            background-color: #007bff;
-            border: none;
-            border-radius: 0 5px 5px 0;
-            color: #fff;
-            cursor: pointer;
+        .notes {
+            background-color: #222;
+            padding: 20px;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div id="messages"></div>
-        <input type="text" id="message" placeholder="Type your message...">
-        <button onclick="sendMessage()">Send</button>
+        <h1>CYBER UTU</h1>
+        <div class="notes">
+            <h2>My Notes</h2>
+            <!-- Add your notes here -->
+        </div>
+        <div class="spot">
+            <h2>Spot</h2>
+            <!-- Add your spot content here -->
+        </div>
+        <div class="password">
+            <h2>Password Protected Area</h2>
+            <p>Please enter the password to access this area:</p>
+            <form action="/login" method="post">
+                <input type="password" name="password">
+                <input type="submit" value="Submit">
+            </form>
+        </div>
     </div>
-
-    <script>
-        const ws = new WebSocket('https://szoros.github.io/cs-6/2.html'); // Change the URL to your WebSocket server
-
-        const messagesContainer = document.getElementById('messages');
-        const messageInput = document.getElementById('message');
-        let userName = prompt("Please enter your name:");
-
-        ws.onopen = function(event) {
-            const data = {
-                text: userName + " has joined the chat! 🎉"
-            };
-            ws.send(JSON.stringify(data));
-        };
-
-        ws.onmessage = function(event) {
-            const message = JSON.parse(event.data);
-            const messageElement = document.createElement('div');
-            messageElement.textContent = message.text;
-            messagesContainer.appendChild(messageElement);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        };
-
-        function sendMessage() {
-            const message = messageInput.value.trim();
-            if (message !== '') {
-                const data = {
-                    text: userName + ": " + message + " 😊"
-                };
-                ws.send(JSON.stringify(data));
-                messageInput.value = '';
-            }
-        }
-    </script>
+    <footer>
+        <p style="text-align: center;">© 2024 CYBER UTU. All rights reserved.</p>
+    </footer>
 </body>
 </html>
